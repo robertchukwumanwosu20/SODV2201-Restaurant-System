@@ -1,0 +1,4 @@
+import { money } from '../data';
+export default function Orders({ orders }) {
+  return <section><p className="eyebrow">FROM OUR KITCHEN TO YOU</p><h1>My orders</h1><p>Orders placed in this browser. Admin demo status changes appear here.</p>{orders.length === 0 ? <p className="empty">No orders yet.</p> : orders.map(order => <article className="panel" key={order.id}><div className="card-top"><h2>Order {order.id.slice(0, 8)}</h2><span className="badge">{order.status}</span></div><p>{new Date(order.createdAt).toLocaleString()} · {order.method} · {order.name}</p><ul>{order.items.map(item => <li key={item.id}>{item.quantity} × {item.name} — {money(item.price * item.quantity)}</li>)}</ul><p>Subtotal {money(order.subtotal)} · GST {money(order.tax)} · Delivery {money(order.delivery)}</p><strong>Total {money(order.total)}</strong>{order.address && <p>Deliver to: {order.address}</p>}</article>)}</section>;
+}
